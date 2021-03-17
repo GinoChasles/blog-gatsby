@@ -21,7 +21,8 @@ module.exports = {
         apiURL: process.env.DEPLOY_URL
             ? "https://lsf4all-strapi.herokuapp.com"
             : "http://localhost:1337",
-        contentTypes: [`article`, `user`],
+        contentTypes: ["article", "category", "writer"],
+        singleTypes: [`homepage`, `global`],
         queryLimit: 1000,
       },
     },
