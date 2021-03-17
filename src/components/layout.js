@@ -13,7 +13,7 @@ const Layout = ({ children, seo }) => (
             metaTitle
             metaDescription
             shareImage {
-              publicURL
+              url
             }
           }
         }

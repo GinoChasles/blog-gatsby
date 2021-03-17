@@ -44,7 +44,7 @@ const SEO = ({ seo = {} }) => {
         if (fullSeo.shareImage) {
             const imageUrl =
                 (process.env.GATSBY_ROOT_URL || "https://blog-lsf4all-gatsby.netlify.app") +
-                fullSeo.shareImage.publicURL;
+                fullSeo.shareImage.url;
             tags.push(
                 {
                     name: "image",
@@ -80,7 +80,7 @@ const SEO = ({ seo = {} }) => {
             link={[
                 {
                     rel: "icon",
-                    href: favicon.publicURL,
+                    href: favicon.url,
                 },
                 {
                     rel: "stylesheet",
@@ -131,13 +131,13 @@ const query = graphql`
     strapiGlobal {
       siteName
       favicon {
-        publicURL
+        url
       }
       defaultSeo {
         metaTitle
         metaDescription
         shareImage {
-          publicURL
+          url
         }
       }
     }
