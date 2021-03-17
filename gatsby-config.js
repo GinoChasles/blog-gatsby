@@ -16,11 +16,12 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-strapi",
+      resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: process.env.API_URL || "https://lsf4all-strapi.herokuapp.com/",
-        contentTypes: ["article", "category", "writer"],
-        singleTypes: [`homepage`, `global`],
+        apiURL: process.env.DEPLOY_URL
+            ? "https://lsf4all-strapi.herokuapp.com/"
+            : "http://localhost:1337",
+        contentTypes: [`article`, `user`],
         queryLimit: 1000,
       },
     },
