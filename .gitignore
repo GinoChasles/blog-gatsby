@@ -70,3 +70,6 @@ yarn-error.log
 package-lock.json
 
 .vercel
+
+# Local Netlify folder
+.netlify
