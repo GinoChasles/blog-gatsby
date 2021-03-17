@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: "gatsby-source-strapi",
       options: {
-        apiURL: process.env.API_URL || "https://blog-lsf4all.herokuapp.com/",
+        apiURL: process.env.API_URL || "https://lsf4all-strapi.herokuapp.com/",
         contentTypes: ["article", "category", "writer"],
         singleTypes: [`homepage`, `global`],
         queryLimit: 1000,
