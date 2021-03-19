@@ -1,11 +1,9 @@
-import React from "react";
-import { graphql } from "gatsby";
+import React, {useState, useEffect} from "react";
+import {graphql} from "gatsby";
 import Img from "gatsby-image";
 import Moment from "react-moment";
 import Layout from "../components/layout";
 import Markdown from "react-markdown";
-import ReactDisqusComments from "react-disqus-comments";
-
 
 export const query = graphql`
   query ArticleQuery($slug: String!) {
@@ -16,7 +14,7 @@ export const query = graphql`
       content
       publishedAt
       image {
-        url
+        publicURL
         childImageSharp {
           fixed {
             src
@@ -37,7 +35,8 @@ export const query = graphql`
   }
 `;
 
-const Article = ({ data }) => {
+
+const Article = ({data}) => {
     const article = data.strapiArticle;
     const seo = {
         metaTitle: article.title,
@@ -46,14 +45,62 @@ const Article = ({ data }) => {
         article: true,
     };
 
+    const [commentaires, setCommentaires] = useState([])
+
+    const fetchCommentaires = () => {
+        fetch("https://lsf4all-strapi.herokuapp.com/commentaires?article=" + article.strapiId)
+            .then(reponse => reponse.json())
+            .then( comms => {
+                const commentairesAAfficher = comms.map((comm) => {
+                    const date = new Date(comm.published_at).toLocaleString("fr")
+                    return (
+                        <div className="commentaire">
+                            <div className="auteur">{comm.auteur}</div>
+                            <div className="texte">{comm.texte}</div>
+                            <div className="date">{date}</div>
+                        </div>
+                    )
+                })
+                setCommentaires(commentairesAAfficher)
+            })
+    }
+
+
+    const submitComm = (event) => {
+        event.preventDefault();
+        const auteur = event.target.auteur.value
+        const texte = event.target.texte.value
+
+        const comm = {
+            auteur: auteur,
+            texte: texte,
+            article: article.strapiId,
+        }
+
+        fetch("https://lsf4all-strapi.herokuapp.com/commentaires", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(comm),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                fetchCommentaires();
+            }).catch(err => console.error)
+    }
+    useEffect(fetchCommentaires, [article])
+
+
     return (
         <Layout seo={seo}>
             <div>
                 <div
                     id="banner"
                     className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding uk-margin"
-                    data-src={article.image.url}
-                    data-srcset={article.image.url}
+                    data-src={article.image.publicURL}
+                    data-srcset={article.image.publicURL}
                     data-uk-img
                 >
                     <h1>{article.title}</h1>
@@ -61,16 +108,16 @@ const Article = ({ data }) => {
 
                 <div className="uk-section">
                     <div className="uk-container uk-container-small">
-                        <Markdown source={article.content} escapeHtml={false} />
+                        <Markdown source={article.content} escapeHtml={false}/>
 
-                        <hr className="uk-divider-small" />
+                        <hr className="uk-divider-small"/>
 
                         <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
                             <div>
                                 {article.author.picture && (
                                     <Img
                                         fixed={article.author.picture.childImageSharp.fixed}
-                                        imgStyle={{ position: "static", borderRadius: "50%" }}
+                                        imgStyle={{position: "static", borderRadius: "50%"}}
                                     />
                                 )}
                             </div>
@@ -85,13 +132,15 @@ const Article = ({ data }) => {
                         </div>
                     </div>
                 </div>
+                <form onSubmit={submitComm}>
+                    <input type={"text"} name={"auteur"}/>
+                    <input type={"text"} name={"texte"}/>
+                    <button type={"submit"}>Envoyer</button>
+                </form>
+                <div className={"commentaires"}>
+                    {commentaires}
+                </div>
             </div>
-            <ReactDisqusComments
-                shortname="ginochasles"
-                identifier="ginochasles"
-                title="Example Thread"
-                url="http://localhost:8000"
-            />
         </Layout>
     );
 };
