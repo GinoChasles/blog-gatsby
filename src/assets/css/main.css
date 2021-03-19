@@ -39,3 +39,7 @@ img:hover {
     opacity: 1 !important;
     transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1) !important;
 }
+
+.commentaires {
+    border: 1px black dot-dot-dash;
+}
