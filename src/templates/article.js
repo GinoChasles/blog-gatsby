@@ -58,6 +58,7 @@ const Article = ({data}) => {
                             <div className="auteur">{comm.auteur}</div>
                             <div className="texte">{comm.texte}</div>
                             <div className="date">{date}</div>
+                            <hr />
                         </div>
                     )
                 })
