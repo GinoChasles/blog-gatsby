@@ -40,6 +40,13 @@ img:hover {
     transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1) !important;
 }
 
+form {
+    background-color: darkgrey;
+}
+
+.date{
+    font-style: italic;
+}
 .commentaire {
     margin: 10px 0 10px 0;
     border: 1px black dot-dot-dash;

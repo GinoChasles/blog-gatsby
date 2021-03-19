@@ -134,11 +134,11 @@ const Article = ({data}) => {
                     </div>
                 </div>
                 <form onSubmit={submitComm}>
-                    <input type={"text"} name={"auteur"}/>
-                    <input type={"text"} name={"texte"}/>
+                    <input type={"text"} name={"auteur"} placeholder={"auteur"}/>
+                    <input type={"text"} name={"texte"} placeholder={"commentaire"}/>
                     <button type={"submit"}>Envoyer</button>
                 </form>
-                <div className={"commentaires"}>
+                <div>
                     {commentaires}
                 </div>
             </div>
