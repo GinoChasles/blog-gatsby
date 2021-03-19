@@ -54,7 +54,7 @@ const Article = ({data}) => {
                 const commentairesAAfficher = comms.map((comm) => {
                     const date = new Date(comm.published_at).toLocaleString("fr")
                     return (
-                        <div className="commentaire">
+                        <div >
                             <div className="auteur">{comm.auteur}</div>
                             <div className="texte">{comm.texte}</div>
                             <div className="date">{date}</div>
@@ -138,7 +138,7 @@ const Article = ({data}) => {
                     <input type={"text"} name={"texte"} placeholder={"commentaire"}/>
                     <button type={"submit"}>Envoyer</button>
                 </form>
-                <div>
+                <div className="commentaire">
                     {commentaires}
                 </div>
             </div>

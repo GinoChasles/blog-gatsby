@@ -41,13 +41,16 @@ img:hover {
 }
 
 form {
+    text-align: center;
     background-color: darkgrey;
+    height: 50px;
 }
 
 .date{
     font-style: italic;
 }
 .commentaire {
+    text-align: center;
     margin: 10px 0 10px 0;
     border: 1px black dot-dot-dash;
 }
